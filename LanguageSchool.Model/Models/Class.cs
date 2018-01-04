@@ -26,6 +26,8 @@ namespace LanguageSchool.Model
         public DayOfWeek Day { get; set; }
         [Required]
         public int StudentsMax { get; set; }
+        [Required]
+        public float Price { get; set; }
 
         [Required]
         public int LanguageRefID { get; set; }

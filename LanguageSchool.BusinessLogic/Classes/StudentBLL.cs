@@ -156,5 +156,20 @@ namespace LanguageSchool.BusinessLogic
             else
                 return null;
         }
+
+        public float? GetTotalCharge(string id)
+        {
+            var classes = _studentDAL.GetClasses(id);
+            float charge = 0;
+            if (classes != null)
+            {
+                foreach (var c in classes)
+                    charge += c.Price;
+                return charge;
+            }
+            else
+                return null;
+            
+        }
     }
 }

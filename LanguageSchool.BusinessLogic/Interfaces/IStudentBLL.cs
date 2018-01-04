@@ -19,6 +19,6 @@ namespace LanguageSchool.BusinessLogic
         string Update(string id, string firstName, string lastName, string email, string phoneNumber = "");
         (List<Student> students, int pageCount) Search(StudentFilter filter);
         int[] GetClasses(string id);
-
+        float? GetTotalCharge(string id);
     }
 }

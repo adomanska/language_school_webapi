@@ -29,16 +29,17 @@ namespace LanguageSchool.BusinessLogic
 
                 foreach (Class c in classes)
                 {
-                ClassDataDto classData = new ClassDataDto()
-                {
-                    Id = c.Id,
-                    ClassName = c.ClassName,
-                    Language = classDAL.GetLanguage(c.Id).LanguageName,
-                    LanguageLevel = classDAL.GetLanguageLevel(c.Id).LanguageLevelSignature,
-                    StartTime = c.StartTime,
-                    EndTime = c.EndTime,
-                    StudentsCount = GetStudentsCount(c.Id),
-                    StudentsMax = c.StudentsMax
+                    ClassDataDto classData = new ClassDataDto()
+                    {
+                        Id = c.Id,
+                        ClassName = c.ClassName,
+                        Language = classDAL.GetLanguage(c.Id).LanguageName,
+                        LanguageLevel = classDAL.GetLanguageLevel(c.Id).LanguageLevelSignature,
+                        StartTime = c.StartTime,
+                        EndTime = c.EndTime,
+                        StudentsCount = GetStudentsCount(c.Id),
+                        StudentsMax = c.StudentsMax,
+                        Price = String.Format("{0:0.00} PLN", c.Price)
                 };
                 result.Add(classData);
                 }
@@ -66,7 +67,8 @@ namespace LanguageSchool.BusinessLogic
                 StartTime = c.StartTime,
                 EndTime = c.EndTime,
                 StudentsCount = GetStudentsCount(c.Id),
-                StudentsMax = c.StudentsMax
+                StudentsMax = c.StudentsMax,
+                Price= String.Format("{0:0.00} PLN", c.Price)
             };
 
             return classData;

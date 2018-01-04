@@ -61,6 +61,16 @@ namespace LanguageSchool.WebApi.Controllers
             return Ok();
         }
 
+        [Authorize]
+        [Route("api/student/charge"), HttpGet]
+        public IHttpActionResult GetTotalCharge()
+        {
+            var charge = _studentService.GetTotalCharge(CurrentUserId());
+            if (!charge.HasValue)
+                return NotFound();
+            else
+                return Ok(String.Format("{0:0.00} PLN",charge.Value));
+        }
 
     }
 }
