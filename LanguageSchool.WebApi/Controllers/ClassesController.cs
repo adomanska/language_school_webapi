@@ -144,5 +144,24 @@ namespace LanguageSchool.WebApi.Controllers
             else
                 return NotFound();
         }
+
+        [Authorize]
+        [Route("api/classes/{id:int}/students"), HttpGet]
+        public IHttpActionResult GetStudents(int id)
+        {
+            List<StudentBasicDataDto> students;
+            try
+            {
+                students = _classService.GetStudents(id, CurrentUserId());
+            }
+            catch (Exception e)
+            {
+                return NotFound();
+            }
+
+            if (students == null)
+                return BadRequest("You have to be signed for class to show students list");
+            return Ok(students);
+        }
     }
 }

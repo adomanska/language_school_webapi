@@ -101,11 +101,12 @@ namespace LanguageSchool.WebApi.Controllers
         {
             MailMessage mail = new MailMessage();
             SmtpClient SmtpServer = new SmtpClient("smtp.gmail.com");
-
+            mail.IsBodyHtml = true;
             mail.From = new MailAddress("languageschool.net@gmail.com");
             mail.To.Add(emailAddress);
             mail.Subject = "Welcome!";
-            mail.Body = "Welcome "+name+"!\n    Thanks for registering to our Language School. We hope you'll be satisfied with our lessons. \n\n Language School Team";
+            mail.Body = "<h2>Welcome "+name+"!</h2><p>Thanks for registering to our Language School. We hope you'll be satisfied with our lessons. Now you can manage your account and sign for classes chosen from wide offer. Go to login page.</p>"+
+                "<p>Best regards,</p><p>Language School Team</p>";
 
             SmtpServer.Port = 587;
             SmtpServer.Credentials = new System.Net.NetworkCredential("languageschool.net", "psiakostka");

@@ -186,6 +186,33 @@ namespace LanguageSchool.BusinessLogic
             }
         }
 
+        public List<StudentBasicDataDto> GetStudents(int id, string userId)
+        {
+            try
+            {
+                var students = classDAL.GetStudents(id);
+                if (!students.Select(x => x.Id).Contains(userId))
+                    return null;
+                List<StudentBasicDataDto> result = new List<StudentBasicDataDto>();
+
+                foreach(Student s in students)
+                {
+                    StudentBasicDataDto studentData = new StudentBasicDataDto()
+                    {
+                        FirstName = s.FirstName,
+                        LastName = s.LastName
+                    };
+                    result.Add(studentData);
+                }
+
+                return result;
+            }
+            catch
+            {
+                throw new Exception("Loading data failed");
+            }
+        }
+
         private int GetStudentsCount(int id)
         {
             var students = classDAL.GetStudents(id);
