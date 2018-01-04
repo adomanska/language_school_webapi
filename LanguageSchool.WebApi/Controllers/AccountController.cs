@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 using System.Web.Http;
 using LanguageSchool.BusinessLogic;
 using Microsoft.AspNet.Identity.EntityFramework;
+using System.Net.Mail;
 
 namespace LanguageSchool.WebApi.Controllers
 {
@@ -53,6 +54,7 @@ namespace LanguageSchool.WebApi.Controllers
 
             IdentityUser user = await _repo.FindUser(userModel.UserName, userModel.Password);
             _studentService.Add(user.Id, userModel.FirstName, userModel.LastName, userModel.Email, userModel.PhoneNumber);
+            SendConfimationEmail(userModel.Email, userModel.FirstName);
             return Ok();
         }
 
@@ -93,6 +95,23 @@ namespace LanguageSchool.WebApi.Controllers
             }
 
             return null;
+        }
+
+        private void SendConfimationEmail(string emailAddress, string name)
+        {
+            MailMessage mail = new MailMessage();
+            SmtpClient SmtpServer = new SmtpClient("smtp.gmail.com");
+
+            mail.From = new MailAddress("languageschool.net@gmail.com");
+            mail.To.Add(emailAddress);
+            mail.Subject = "Welcome!";
+            mail.Body = "Welcome "+name+"!\n    Thanks for registering to our Language School. We hope you'll be satisfied with our lessons. \n\n Language School Team";
+
+            SmtpServer.Port = 587;
+            SmtpServer.Credentials = new System.Net.NetworkCredential("languageschool.net", "psiakostka");
+            SmtpServer.EnableSsl = true;
+
+            SmtpServer.Send(mail);
         }
     }
 }
